@@ -1,5 +1,7 @@
 const chatForm = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
+const roomName = document.getElementById('room-name');
+const userList = document.getElementById('users')
 
 // get username and room from url
 
@@ -13,6 +15,12 @@ const socket = io();
 
 // join chat room
 socket.emit('joinRoom', { username, room});
+
+// get room and users
+socket.on('roomUsers', ({ room, users}) => {
+  outputRoomName(room);
+  outputUsers(users);
+});
 
 // Message from server
 socket.on('message', message => {
@@ -46,4 +54,10 @@ function outputMessage(message) {
                     <p class="text"> ${message.text}</p>`
 
   document.querySelector('.chat-messages').appendChild(div);
+}
+
+// add room name to the dom
+
+function outputRoomName(room) {
+  roomName.innerText = room;
 }
