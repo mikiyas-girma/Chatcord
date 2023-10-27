@@ -61,3 +61,11 @@ function outputMessage(message) {
 function outputRoomName(room) {
   roomName.innerText = room;
 }
+
+// add user to userList
+
+function outputUsers(users) {
+  userList.innerHTML = `
+    ${users.map(user => `<li>${user.username}</li>`).join('')}
+  `;
+}
